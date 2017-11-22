@@ -22,13 +22,13 @@ ht_calc(char *value)
 	int i;
 	int ht_index = 1;
 
-	for (i = 0; i < strlen(value) - 1; i++)
+	for (i = 0; i < strlen(value); i++)
 		ht_index = (ht_index * value[i]) % HT_SIZE + 1;
 
 	return ht_index - 1;
 }
 
-void
+hashtable_t *
 ht_set(hashtable_t *hash, char *value, int code)
 {
 	if (ht_get(hash, value, code))
@@ -47,6 +47,8 @@ ht_set(hashtable_t *hash, char *value, int code)
 	curr_hash->value = calloc(1, strlen(value) + 1);
 	strcpy(curr_hash->value, value);
 	curr_hash->code = code;
+
+	return curr_hash;
 }
 
 hashtable_t
@@ -81,10 +83,10 @@ ht_print(hashtable_t *hash)
 		if (curr_hash->value) {
 
 			for (; curr_hash->next; curr_hash = curr_hash->next)
-				printf("hash[%i]: [%s]\n", i, curr_hash->value);
+				printf("hash[%i][%i]: [%s]\n", i, curr_hash->code, curr_hash->value);
 
 			if (curr_hash->value)
-				printf("hash[%i]: [%s]\n", i, curr_hash->value);
+				printf("hash[%i][%i]: [%s]\n", i, curr_hash->code, curr_hash->value);
 		}
 	}
 }

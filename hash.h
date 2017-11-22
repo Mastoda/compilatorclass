@@ -10,8 +10,8 @@ typedef struct hashtable_s
 
 hashtable_t *ht_create(void);
 hashtable_t *ht_get(hashtable_t *hash, char *value, int code);
+hashtable_t *ht_set(hashtable_t *hash, char *value, int code);
 int ht_calc(char *value);
-void ht_set(hashtable_t *hash, char *value, int code);
 void ht_print(hashtable_t *hash);
 
 #endif

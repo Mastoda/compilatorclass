@@ -2,6 +2,7 @@
 	#include "y.tab.h"
 	#include "hash.h"
 	#include "util.h"
+	#include "symbols.h"
 
 	int running;
 	int n_line;
@@ -45,17 +46,17 @@ output	return KW_OUTPUT;
 
 	/* booleans */
 false { 
-	yylval.symbol = ht_set(hashtable, yytext, LIT_FALSE);
+	yylval.symbol = ht_set(hashtable, yytext, SYMBOL_LIT_FALSE);
 	return LIT_FALSE;
 }
 true { 
-	yylval.symbol = ht_set(hashtable, yytext, LIT_TRUE); 
+	yylval.symbol = ht_set(hashtable, yytext, SYMBOL_LIT_TRUE); 
 	return LIT_TRUE; 
 }
 
 	/* integers */
 [0-9]* { 
-	yylval.symbol = ht_set(hashtable, yytext, LIT_INTEGER); 
+	yylval.symbol = ht_set(hashtable, yytext, SYMBOL_LIT_INTEGER); 
 	return LIT_INTEGER; 
 }
 
@@ -64,13 +65,13 @@ true {
 	char aux[2]; 
 	aux[0] = yytext[1]; 
 	aux[1] = '\0'; 
-	yylval.symbol = ht_set(hashtable, aux, LIT_CHAR);
+	yylval.symbol = ht_set(hashtable, aux, SYMBOL_LIT_CHAR);
 	return LIT_CHAR; 
 }
 
 	/* identifiers */
 [a-zA-Z]+[a-zA-Z_]* {
-	yylval.symbol = ht_set(hashtable, yytext, TK_IDENTIFIER); 
+	yylval.symbol = ht_set(hashtable, yytext, SYMBOL_IDENTIFIER); 
 	return TK_IDENTIFIER; 
 }
 
@@ -82,7 +83,7 @@ true {
 <STRING>\" { 
 	*s++ = '\0'; 
 	*s = 0; 
-	yyval.symbol = ht_set(hashtable, buffer, LIT_STRING); 
+	yyval.symbol = ht_set(hashtable, buffer, SYMBOL_LIT_STRING); 
 	BEGIN 0; 
 	return LIT_STRING; 
 }
