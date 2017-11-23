@@ -27,12 +27,12 @@
 
 %{
     #include <stdio.h>
+    
     #include "hash.h"
 %}
 
 %union {
-    char *symbol;
-    int integer;
+    hashtable_t *symbol;
 }
 
 %%
@@ -164,7 +164,7 @@ expression:
     | LIT_INTEGER                    {}
     | boolean                        {}
     | LIT_CHAR                       {}
-;
+    ;
 
 if_block:
     KW_IF '(' expression ')' KW_THEN command {}

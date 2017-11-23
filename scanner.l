@@ -1,8 +1,8 @@
 %{
-	#include "y.tab.h"
 	#include "hash.h"
 	#include "util.h"
 	#include "symbols.h"
+	#include "y.tab.h"
 
 	int running;
 	int n_line;
@@ -13,7 +13,7 @@
 %}
 
 %x STRING
-%x COMMENT_BLOCK
+%x COMMENT_BLOCK 
 
 %%
 
@@ -32,10 +32,10 @@
 
 	/* keywords */
 int		return KW_INT;
-real	return KW_REAL;
 bool	return KW_BOOL;
 char	return KW_CHAR;
 if		return KW_IF;
+then	return KW_THEN;
 else	return KW_ELSE;
 loop	return KW_LOOP;
 input	return KW_INPUT;
@@ -83,7 +83,7 @@ true {
 <STRING>\" { 
 	*s++ = '\0'; 
 	*s = 0; 
-	yyval.symbol = ht_set(hashtable, buffer, SYMBOL_LIT_STRING); 
+	yylval.symbol = ht_set(hashtable, buffer, SYMBOL_LIT_STRING); 
 	BEGIN 0; 
 	return LIT_STRING; 
 }

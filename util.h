@@ -1,5 +1,5 @@
-#ifndef _UTIL
-#define _UTIL
+#ifndef _UTIL_H
+#define _UTIL_H
 
 #include "hash.h"
 
@@ -9,9 +9,9 @@ extern int comment_control;
 
 extern hashtable_t *hashtable;
 
-int yywrap(void);
-int yyerror(void);
-int get_line_number(void);
-void init_me(void);
+void init_me();
+
+int yyerror();
+int get_line_number();
 
 #endif

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "util.h"
 
 int running;
@@ -8,11 +9,6 @@ int comment_control;
 
 hashtable_t *hashtable;
 
-int yywrap(void)
-{
-	return 1;
-}
-
 int yyerror(char *s)
 {
 	fprintf(stderr, "%s\n", s);
@@ -20,15 +16,21 @@ int yyerror(char *s)
 	exit(3);
 }
 
-int get_line_number(void)
+int yywrap()
 {
-	return n_line;
+	return 1;
 }
 
-void init_me(void)
+void init_me()
 {
 	running = 1;
 	n_line = 0;
 	comment_control = 0;
 	hashtable = ht_create();
 }
+
+int get_line_number()
+{
+	return n_line;
+}
+

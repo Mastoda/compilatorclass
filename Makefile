@@ -1,7 +1,7 @@
-all: lex.yy.o scanner.o hash.o util.o y.tab.o
+all: util.o  hash.o y.tab.o lex.yy.o scanner.o
 	@gcc -m64 -std=c99 -pedantic -Wall -Wshadow -Wpointer-arith -Wcast-qual \
-        -Wstrict-prototypes -Wmissing-prototypes util.o main.o lex.yy.o hash.o  \
-	y.tab.o -L . -o etapa2
+        -Wstrict-prototypes -Wmissing-prototypes util.o main.o lex.yy.o y.tab.o \
+	hash.o -L . -o etapa2
 
 util.o: util.c util.h
 	@gcc -m64 -std=c99 -pedantic -Wall -Wshadow -Wpointer-arith -Wcast-qual \
@@ -12,7 +12,7 @@ scanner.o: main.c
         -Wstrict-prototypes -Wmissing-prototypes -c main.c -o main.o
 
 y.tab.o: syntax.y
-	@yacc syntax.y -d
+	@bison syntax.y -d --file-prefix y
 	@gcc -c y.tab.c -o y.tab.o
 
 lex.yy.o: scanner.l
@@ -25,4 +25,4 @@ hash.o: hash.c hash.h
         -Wstrict-prototypes -Wmissing-prototypes -c hash.c -o hash.o
 
 clean:
-	@rm -f lex.yy.* *.o etapa2 y.tab.*
+	@rm -f lex.yy.* *.o etapa2 y.tab.* 
